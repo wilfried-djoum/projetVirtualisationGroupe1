@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql
+    restart: unless-stopped
+    container_name: mysql_server
+    # command: --default-authentication-plugin=caching_sha2_password
+    # env_file: ./.env
+    environment:
+       MYSQL_ROOT_PASSWORD: will
+       MYSQL_DATABASE: users
+      #  MYSQL_USER: root
+      #  MYSQL_PASSWORD: will 
+      # # - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      # # - MYSQL_HOST=localhost
+      # - MYSQL_USER=root
+      # - MYSQL_PASSWORD=will
+      # # - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      # - MYSQL_DATABASE=users
+    ports:
+      - 3306:3306
+      # - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - reseau
+        # name: reseau
+        # ipv4_address: 172.18.0.2
+
+  app:
+    depends_on:
+      - mysqldb
+      - localstack
+    build: .
+    restart: unless-stopped
+    image: image-nodejs
+    container_name: nodejs
+    # env_file: ./.env
+    ports:
+      - 3100:3100
+      # - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    environment:
+      - MYSQL_HOST=172.27.0.2
+      # - MYSQL_USER=root
+      # - MYSQL_PASSWORD=will
+      - MYSQL_DATABASE=users
+      - MYSQL_ROOT_PASSWORD=will
+      # # - DB_HOST=172.22.0.3
+      # # - DB_USER=$MYSQLDB_USER
+      # - DB_USER=root
+      # - DB_PASSWORD=will
+      # # - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      # # - DB_NAME=$MYSQLDB_DATABASE
+      # - DB_NAME=users
+      # - DB_PORT=$MYSQLDB_DOCKER_PORT
+    stdin_open: true
+    tty: true
+    networks:
+      - reseau
+  
+  localstack:
+    container_name: localstack
+    image: localstack/localstack
+    ports:
+        - '4566:4566'             # LocalStack Gateway
+        - '3510-3559:4510-4559'   # external services port range
+    environment:
+        - DEBUG=${DEBUG-}
+        - PERSISTENCE=${PERSISTENCE-}
+        - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-}
+        - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY-}  # only required for Pro
+        - DOCKER_HOST=unix:///var/run/docker.sock
+        - SERVICES=s3 # comma-separated list of services
+    volumes:
+        - 'volume-localstack:/var/lib/localstack'
+        - '/var/run/docker.sock:/var/run/docker.sock'
+    networks:
+        - reseau
+
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: unless-stopped
+    ports:
+      - 8081:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_server
+    networks:
+      - reseau
+        # name: reseau
+
+volumes: 
+  volume-localstack:
+  # docker.sock:
+  db:
+    driver: local
+networks:
+  reseau: 
+     driver: bridge
+     name: reseau
+    #  external: true
+

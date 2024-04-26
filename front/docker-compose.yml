@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  angular-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: image-angular
+    ports:
+      - 4200:4200
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - .:/front
+      # - /front/node_modules
+    networks:
+      - reseau
+
+networks:
+  reseau:
+    driver: bridge
+    name: reseau
+
+volumes:
+  front: 
+    driver: local
+  # node_modules:

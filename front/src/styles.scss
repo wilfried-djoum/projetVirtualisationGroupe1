@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "primeng/resources/themes/lara-light-blue/theme.css";
+// @import "primeng/resources/primeng.css";
+// @import '~primeicons/primeicons.css';
+// @import "primeicons/primeicons.css";
+@import "boxicons/css/boxicons.min.css";
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css);
+
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;800;900&display=swap);
+@import 'ngx-toastr/toastr';
+
+*{
+    padding: 0;
+    margin: 0;
+    transition: .2s ease;
+    list-style-type: none;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif !important;
+}
+::selection{
+    background: #03e9f4;
+    color: white;
+}

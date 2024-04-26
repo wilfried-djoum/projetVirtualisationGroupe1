@@ -1,0 +1,45 @@
+<div class="body">
+    <div class="container">
+        <h4>Connectez-vous !</h4>
+        <form [formGroup]="loginForm" (submit)="login()" method="post">
+            <div class="user-box">
+                <label for="number">Numero de telephone</label><br>
+                <input type="number" name="" required id="number" formControlName="numero" placeholder="697861245"
+                    class="form-control">
+            </div>
+            <div class="user-box">
+                <label for="password">Code d'authentification</label><br>
+                <input type="password" name="" required id="password" formControlName="codeAuth"
+                    placeholder="mot de passe" class="form-control">
+            </div>
+            <div class="form-row d-flex justify-content-between mt-4 mb-2 souvenir">
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox ml-1">
+                        <input type="checkbox" class="custom-control-input" id="basic_checkbox_1">&nbsp;
+                        <label class="custom-control-label moi" for="basic_checkbox_1">Se souvenir de moi</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <a (click)="forget()">Code oublié?</a>
+                </div>
+            </div>
+            <div class="text-center button">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid || submitting">
+                    <div *ngIf="!submitting">Connexion</div>
+                    <div *ngIf="submitting">
+                        <i class='bx bx-loader bx-spin'
+                            style="font-size: 25px; letter-spacing: 5px; font-weight: 600;"></i>
+                    </div>
+                </button>
+            </div>
+        </form>
+        <div class="new-account mt-3 noAccount">
+            <p>Vous n'avez pas de compte? &nbsp; <a class="text-primary"
+                    (click)="formInscription()">Enregistrez-vous</a></p>
+        </div>
+    </div>
+</div>

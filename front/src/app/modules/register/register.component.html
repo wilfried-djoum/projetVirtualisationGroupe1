@@ -1,0 +1,73 @@
+<div class="body">
+    <div class="container">
+        <h4>Inscrivez-vous !</h4>
+        <form enctype="multipart/form-data" action="" [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="user-box form-group nomPrenom">
+                <div class="nom">
+                    <label for="nom">Nom *</label><br>
+                    <input type="text" name="" required id="nom" formControlName="nom" class="form-control"
+                        placeholder="nom">
+                </div>
+                <div class="prenom">
+                    <label for="prenom">Prenom *</label><br>
+                    <input type="text" name="" required id="prenom" formControlName="prenom" class="form-control"
+                        placeholder="prenom">
+                </div>
+            </div>
+            <div class="user-box form-group nomPrenom">
+                <div class="tel">
+                    <label for="tel">Numero telephone</label><br>
+                    <input type="number" name="" required id="tel" class="form-control" placeholder="695563241"
+                        formControlName="numero">
+                </div>
+                <div class="date">
+                    <label for="date">Date de naissance</label><br>
+                    <input type="date" name="" required id="date" class="form-control" formControlName="dateNaiss">
+                </div>
+            </div>
+            <div class="user-box">
+                <label for="email">Adresse mail *</label><br>
+                <input type="email" name="" required id="email" class="form-control"
+                    placeholder="wilfrieddjoum@gmail.com" formControlName="email">
+            </div>
+            <div class="nomPrenom">
+                <div class="user-box">
+                    <label for="password">Code authentification *</label><br>
+                    <input type="password" name="" required id="password" placeholder="Code authentification"
+                        class="form-control" formControlName="codeAuth">
+                </div>
+                <div class="user-box"> 
+                    <label for="password">Confirmer code *</label><br>
+                    <input type="password" name="" required id="password" placeholder="confirmer votre code"
+                        class="form-control" formControlName="confirmCodeAuth">
+                </div>
+            </div>
+            <div class="user-box">
+                <label for="nom">Photo de profil *</label><br>
+                <input type="file" name="" required id="pp" accept=".png, .jpg, .jpeg" class="form-control"
+                    (change)="onPhoto($event)" formControlName="photo">
+            </div>
+            <div class="user-box">
+                <label for="cv">votre CV *</label><br>
+                <input type="file" name="" required id="cv" accept=".pdf" class="form-control" formControlName="cv"
+                    (change)="onCVChange($event)">
+            </div>
+            <div class="text-center button">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="registerForm.invalid || submitting">
+                    <div *ngIf="!submitting">Enregistrement</div>
+                    <div *ngIf="submitting">
+                        <i class='bx bx-loader bx-spin'
+                            style="font-size: 25px; letter-spacing: 5px; font-weight: 600;"></i>
+                    </div>
+                </button>
+            </div>
+        </form>
+        <div class="new-account mt-3 noAccount">
+            <p>Vous avez un compte? &nbsp; <a class="text-primary" (click)="loginForm()">Connectez-vous</a></p>
+        </div>
+    </div>
+</div>

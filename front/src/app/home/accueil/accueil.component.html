@@ -1,0 +1,29 @@
+<div class="body">
+    <div class="container">
+        <div class="innerContainer">
+            <div class="pp">
+                <img [src]="getImageUser(userData.rows[0].photo)" alt="">
+                <!-- <img src="../../../assets/illustration-3d-avatar-profil-humain_23-2150671142.jpg" width="100%"
+                    height="100%" alt=""> -->
+            </div>
+            <div class="informations">
+                <p>Votre nom : <b>{{userData.rows[0].nom}}</b></p>
+                <p>Votre prénom : <b>{{userData.rows[0].prenom}}</b></p>
+                <p>Votre date de naissance : <b>{{userData.rows[0].dateNaiss}}</b></p>
+                <p>Votre adresse mail : <b>{{userData.rows[0].email}}</b></p>
+                <p>Votre numero de téléphone : <b>{{userData.rows[0].numero}}</b></p>
+                <p>Votre CV : <b><a [href]="getUrlCV(userData.rows[0].cv)" target="_blank"
+                            download="{{userData.rows[0].cv}}">
+                            <i class="bx bx-file bx-tada">&nbsp;</i>{{userData.rows[0].cv}}
+                        </a> </b></p>
+            </div>
+            <div class="text-center button">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <button type="submit" class="btn btn-primary btn-block" (click)="logout()">Déconnexion</button>
+            </div>
+        </div>
+    </div>
+</div>
