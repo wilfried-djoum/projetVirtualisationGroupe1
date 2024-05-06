@@ -1,0 +1,2 @@
+monsieur lorsque vous allez pull le projet, vous allez d'abord exécuter la commande "npm install" dans le front comme dans le back 
+Ceci va permettre d'installer d'abord toutes les dependances du projet
